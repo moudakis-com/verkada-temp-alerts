@@ -19,4 +19,4 @@ RUN useradd -m appuser && chown -R appuser:appuser /app
 USER appuser
 
 # Run the script
-CMD ["python", "-u", "sensor_alert.py"]
+CMD ["python", "-u", "main.py"]
