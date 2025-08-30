@@ -1,0 +1,14 @@
+services:
+  verkada-alert:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: verkada-alert
+    restart: unless-stopped
+
+    # Loads variables from your local .env file and injects them
+    # into the container environment (VERKADA_API_KEY, DEVICE_ID, WEBHOOK_URL).
+    env_file:
+      - .env
+
+    command: ["python", "-u", "main.py"]

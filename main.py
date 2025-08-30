@@ -21,9 +21,7 @@ def get_login():
     return(data)
 
 def get_temp(login_key, prev_temp):
-    unix_now = time.time()
-    unix_then = int(unix_now)-60
-    request_url = f"https://api.verkada.com/environment/v1/data?device_id={device_id}&start_time={unix_then}&page_size=1&fields=temperature"
+    request_url = f"https://api.verkada.com/environment/v1/data?device_id={device_id}&page_size=1&fields=temperature&interval=5s"
 
     key = login_key["token"]
     headers = {
@@ -94,6 +92,6 @@ def main():
     last_temp = 0
     while True:
         last_temp = alert(last_temp)
-        time.sleep(30)
+        time.sleep(10)
 
 main()
