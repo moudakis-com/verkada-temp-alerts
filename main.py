@@ -29,17 +29,19 @@ def get_temp(login_key, prev_temp):
         "x-verkada-auth": key
     }
 
-    response = requests.get(request_url, headers=headers)
-    data = response.json()
     try:
-        temp_c = data["data"][0]["temperature"]
-        temp_f = (temp_c * 9/5) + 32
+        response = requests.get(request_url, headers=headers)
+        data = response.json()
+
     except:
         print("ERR: Failed to fetch temperature. Falling back to last known temperature. API response below...")
         print("-----")
         print(data)
         temp_f = prev_temp
 
+    temp_c = data["data"][0]["temperature"]
+    temp_f = (temp_c * 9/5) + 32
+        
     return(temp_f)
 
 def send_webhook(payload):
@@ -93,5 +95,6 @@ def main():
     while True:
         last_temp = alert(last_temp)
         time.sleep(10)
+
 
 main()
