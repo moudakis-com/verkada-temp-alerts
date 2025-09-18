@@ -54,8 +54,7 @@ def send_webhook(payload):
     except requests.exceptions.RequestException as e:
         print(f"Error sending webhook: {e}")
 
-def alert(prev_temp):
-    limit = 90
+def alert(prev_temp, limit):
     temp = get_temp(get_login(), prev_temp)
     if int(temp) >= limit and prev_temp < limit:
         payload = {
@@ -92,9 +91,11 @@ def alert(prev_temp):
 
 def main():
     last_temp = 0
+    limit = os.getenv('LIMIT')
     while True:
-        last_temp = alert(last_temp)
+        last_temp = alert(last_temp, limit)
         time.sleep(10)
 
 
 main()
+
